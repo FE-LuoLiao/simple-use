@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>hello world</title>
+    <script src="https://unpkg.com/vue"></script>
+    <!--<script src="../vue.js"></script>-->
+</head>
+<body>
+<!--简单实例-->
+<div id="app">
+    {{message}}
+</div>
+<div id="app2" v-bind:title="message">
+    鼠标悬停几秒钟查看此处动态绑定的提示信息
+</div>
+<div id="app3">
+    <p v-if="seen">你现在看到我了</p>
+</div>
+<div id="app4">
+    <ol>
+        <li v-for="todo in todos">{{todo.text}}</li>
+    </ol>
+</div>
+<div id="app5">
+    <p>{{message}}</p>
+    <button v-on:click="reverseMessage">逆转消息</button>
+</div>
+<div id="app6">
+    <p>{{message}}</p>
+    <input type="text" v-model="message">
+</div>
+<!--组件-->
+<div id="app7">
+    <ol>
+        <todo-item
+                v-for="item in groceryList"
+                v-bind:todo="item"
+                v-bind:key="item.id"
+        ></todo-item>
+    </ol>
+</div>
+<!--选择列表---单选-->
+<div id="app8">
+    <select v-model="select">
+        <option disabled value="">请选择</option>
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+    </select>
+    <span>Select:{{select}}</span>
+</div>
+<div id="app9">
+    <select v-model="selected" multiple>
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+    </select>
+    <br>
+    <span>Selected: {{selected}}</span>
+</div>
+<div id="app10">
+    <select v-model="selected">
+        <option v-for="option in options" :value="option.value">
+            {{option.text}}
+        </option>
+    </select>
+    <span>Selected:{{selected}}</span>
+</div>
+<!--组件-->
+<div id="app11">
+    <my-component></my-component>
+</div>
+<!--计数器-->
+<div id="app12">
+    <simple-counter></simple-counter>
+    <simple-counter></simple-counter>
+    <simple-counter></simple-counter>
+</div>
+<!--组件间的信息传递-->
+<!--props-->
+<div id="app13">
+    <child message='hello!'></child>
+</div>
+<!--动态props-->
+<div id="app14">
+    <input type="text" v-model="parentMsg">
+    <br>
+    <child2 :my-message="parentMsg"></child2>
+</div>
+<!--props对象-->
+<!--<div id="app15">
+    <child3 v-bind="todo"></child3>
+</div>-->
+<!--子组件向父组件传递信息--> <!--给组件绑定自定义事件-->
+<div id="app15">
+    <p>{{total}}</p>
+    <button-counter v-on:increment='incrementTotal'></button-counter>
+    <button-counter v-on:increment='incrementTotal'></button-counter>
+</div>
+<!--非父子组件之间的通信-->
+<div id="app16">
+    <brother1></brother1>
+    <brother2></brother2>
+</div>
+<!--slot插槽-->
+<div id="app17">
+    <h1>我是父组件的标题</h1>
+    <my-slot>
+        <p>这是一些初始内容</p>
+        <p>这是更多的初始内容</p>
+    </my-slot>
+</div>
+<!--具名插槽  分配-->
+<div id="app18">
+    <app-layout>
+        <h1 slot="header">这里可能是一个页面标题</h1>
+        <p>主要内容的一个段落。</p>
+        <p>另一个主要段落。</p>
+        <p slot="footer">这里有一些联系信息</p>
+    </app-layout>
+</div>
+<!--作用域插槽-->
+<!--<div id="app19">
+    <slot-child>
+        <template scope="props">
+            <span>hello from parent</span>
+            <span>{{prop.text}}</span>
+        </template>
+    </slot-child>
+</div>-->
+<!-- 动态组件-->
+<div id="app20">
+    <component :is="currentView"></component>
+    <!-- keep-alive 把切换出去的组件保留在内存中，可以保留它的状态或避免重新渲染-->
+    <keep-alive>
+        <component :is="nextView"></component>
+    </keep-alive>
+</div>
+<!--Vue组件的 API 来自三部分 - props, events 和 slots:
+    Props 允许外部环境传递数据给组件
+    Events 允许从外部环境在组件内触发副作用
+    Slots 允许外部环境将额外的内容组合在组件中。
+-->
+
+
+<!--子组件索引 在 JavaScript 中直接访问子组件，使用 ref 为子组件指定一个索引 ID -->
+<!--$refs 只在组件渲染完成后才填充，并且它是非响应式的。
+它仅仅作为一个直接访问子组件的应急方案——应当避免在模板或计算属性中使用 $refs。-->
+<div id="app21">
+    <ref-id ref = 'refId'></ref-id>
+</div>
+<!--异步组件  按需加载  Webpack 的代码分割功能-->
+<div id="app22"></div>
+
+
+<!--组件命名约定-->
+<div id="app23">
+    <!--
+    在 HTML 模板中，请使用 kebab-case 形式
+    -->
+</div>
+<script src="./hello-world.js"></script>
+</body>
+</html>
